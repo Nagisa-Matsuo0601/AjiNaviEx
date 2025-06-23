@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>レビュー編集</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+	<h2>レビュー編集</h2>
+
+    <form th:action="@{/edit-review}" method="POST" 
+    		th:object="${reviewEditForm}">
+		【ID】<br>
+		<p th:text="*{reviewId}"></p>
+    	<input type="hidden" th:field="*{reviewId}">
+    	<div th:if="${#fields.hasErrors('reviewId')}" th:errors="*{reviewId}" class="error-msg"></div>
+		<br>
+		【店舗ID】<br>
+		<p th:text="*{restaurantId}
+		               + '　' + *{restaurantName}"></p>
+    	<input type="hidden" th:field="*{restaurantId}">
+    	<input type="hidden" th:field="*{restaurantName}">
+    	<div th:if="${#fields.hasErrors('restaurantId')}" th:errors="*{restaurantId}" class="error-msg"></div>
+		<br>
+    	【利用者ID】<br>
+    	<input type="text" th:field="*{userId}"><br>
+    	<div th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}" class="error-msg"></div>
+		<br>
+    	【来店日】<br>
+    	<input type="date" th:field="*{visitDate}"><br>
+    	<div th:if="${#fields.hasErrors('visitDate')}" th:errors="*{visitDate}" class="error-msg"></div>
+		<br>
+    	【評価】(1-5)<br>
+    	<select th:field="*{rating}">
+			<option value="0">選択してください。</option>
+			<!-- 固定のオプション1-5 -->
+			<option th:each="option : ${#numbers.sequence(1,5)}" 
+				th:value="${option}"
+				th:text="${option}"
+				th:selected="${option == rating}" >
+			</option>
+		</select><br>
+    	<div th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}" class="error-msg"></div>
+		<br>
+    	【一言コメント】<br>
+    	<input type="text" th:field="*{comment}" class="comment" ><br>
+    	<div th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}" class="error-msg"></div>
+		<br>
+    	<input type="submit" value="更新" class="btn">
+    </form>
+
+    <form th:action="@{/search-review}" method="POST"
+			th:object="${reviewEditForm}">
+    	<input type="hidden" th:field="*{restaurantId}">
+    	<input type="hidden" th:field="*{restaurantName}">
+    	<input type="submit" value="もどる" class="btn">
+   	</form>
+	<br>
+	<a th:href="@{/top}">トップページに戻る</a>
+
+</body>
+</html>

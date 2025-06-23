@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>レビュー一覧</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<style>
+    .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+    }
+    .content {
+        flex-grow: 1;
+        text-align: center;
+        margin: 0 20px;
+    }
+    .side-image {
+        width: 300px; /* 画像の幅を調整 */
+        height: auto; /* 高さを自動調整 */
+    }
+</style>
+</head>
+<body>
+
+	<div class="container">
+	    <!-- 左側の画像 -->
+	    <img th:src="@{/images/images (1).jpg}" alt="左側の画像" class="side-image">
+
+	    <div class="content">
+<h2>レビュー一覧</h2>
+
+<div th:object="${reviewSearchForm}">
+【店舗】<br>
+<p th:text="*{restaurantId}
+               + '　' + *{restaurantName}"></p>
+</div>
+
+<br>
+<div th:if="${reviewList} == null">
+（レビューが存在しません）
+</div>
+<div th:if="${reviewList} != null">
+	<table class="review-list">
+		<tr>
+			<th colspan="2">レビュー</th><th>ID</th><th>ユーザ</th><th>来店日</th><th>評価</th><th>一言コメント</th>
+		</tr>
+
+		<tr th:each="review : ${reviewList}">
+			<td>
+				<form th:action="@{/show-edit-form}" method="POST">
+					<input type="hidden" name="reviewId"       th:value="${review.reviewId}">
+					<input type="hidden" name="restaurantId"   th:value="${reviewSearchForm.restaurantId}">
+					<input type="hidden" name="restaurantName" th:value="${reviewSearchForm.restaurantName}">
+					<input type="hidden" name="userId"         th:value="${review.userId}">
+					<input type="hidden" name="visitDate"      th:value="${review.visitDate}">
+					<input type="hidden" name="rating"         th:value="${review.rating}">
+					<input type="hidden" name="comment"        th:value="${review.comment}">
+					<input type="submit" value="編集" class="tbtn">
+				</form>
+			</td>
+			<td>
+							<form th:action="@{/remove-review}" method="POST">
+								<input type="hidden" name="reviewId"       th:value="${review.reviewId}">
+								<input type="hidden" name="restaurantId"   th:value="${reviewSearchForm.restaurantId}">
+								<input type="hidden" name="restaurantName" th:value="${reviewSearchForm.restaurantName}">
+								<input type="hidden" name="userId"         th:value="${review.userId}">
+								<input type="hidden" name="visitDate"      th:value="${review.visitDate}">
+								<input type="hidden" name="rating"         th:value="${review.rating}">
+								<input type="hidden" name="comment"        th:value="${review.comment}">
+								<input type="submit" value="削除" class="tbtn">
+							</form>
+						</td>
+			<td th:text="${review.reviewId}"></td>
+			<td th:text="${review.userId}"></td>
+			<td th:text="${review.visitDate}"></td>
+			<td th:text="${review.rating}"></td>
+			<td th:text="${review.comment}"></td>
+		</tr>
+
+	</table>
+</div>
+
+<br>
+<a th:href="@{/top}">トップページに戻る</a>
+<!-- 右側の画像 -->
+    <img th:src="@{/images/015769e4428330fd47dac3be55db338c.jpg}" alt="右側の画像" class="side-image">
+</div>
+
+</body>
+</html>

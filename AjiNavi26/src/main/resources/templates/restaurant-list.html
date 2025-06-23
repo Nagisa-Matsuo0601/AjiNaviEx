@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>レストラン一覧</title>
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<style>
+    .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .content {
+        flex-grow: 1;
+        text-align: center;
+    }
+    .side-image {
+        width: 380px; /* 画像の幅を調整 */
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <!-- 左側の画像 -->
+    <img th:src="@{/images/IMG_7342-1000x1000.jpg}" alt="左側の画像" class="side-image">
+
+    <div class="content">
+        <h2>美食の探求をする</h2>
+        <form th:action="@{/restaurant-search}" method="POST" th:object="${restaurantSearchForm}">
+            【店舗名】（部分一致）<br>
+            <input type="text" th:field="*{restaurantName}"><br>
+            <br>
+            <input type="submit" value="検索" class="btn">
+        </form>
+
+        <div th:if="${restaurantList} != null">
+            <h2>レストラン一覧</h2>
+
+            <table class="restaurant-list">
+                <tr>
+                    <th  colspan="2">レビュー</th><th>店舗ID</th><th>店舗名</th><th>キャッチフレーズ</th><th>平均評価</th>
+                </tr>
+
+                <tr th:each="restaurant : ${restaurantList}">
+                    <td>					
+						<form th:action="@{/search-review}" method="POST">
+						    <input type="hidden" name="restaurantId" th:value="${restaurant.restaurantId}">
+						    <input type="hidden" name="restaurantName" th:value="${restaurant.restaurantName}">
+						    <input type="submit" value="一覧" class="tbtn">
+						</form>
+						</td>
+									<td>
+
+
+                        <form th:action="@{/show-review-form}" method="POST">
+                            <input type="hidden" name="restaurantId" th:value="${restaurant.restaurantId}">
+                            <input type="hidden" name="restaurantName" th:value="${restaurant.restaurantName}">
+                            <input type="submit" value="登録" class="tbtn">
+                        </form>
+                    </td>
+                    <td th:text="${restaurant.restaurantId}"></td>
+                    <td th:text="${restaurant.restaurantName}"></td>
+                    <td th:text="${restaurant.catchPhrase}"></td>
+                    <td th:text="${restaurant.formatAverageRating()}"></td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+    <!-- 右側の画像 -->
+    <img th:src="@{/images/98726fed9170678c617973ae0ed4e03937d8f7c6_xlarge.jpg}" alt="右側の画像" class="side-image">
+</div>
+
+</body>
+</html>

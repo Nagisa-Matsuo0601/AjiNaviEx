@@ -1,0 +1,101 @@
+@charset "UTF-8";
+
+body {
+    font-family: BIZ UDPゴシック;
+    background-color: #98fb98;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 32px;
+    color: green;
+}
+
+h2 {
+    font-size: 28px;
+    background-color: green;
+    color: white;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    margin: 20px auto; /* 上下の余白は20px、左右は自動で中央寄せ */
+    width: 75; /* 幅を50%に設定 */
+    text-align: center; /* テキストを中央に配置 */
+}
+
+/* 通常のボタン */
+.btn {
+    border: 2px solid green;
+    padding: 4px 20px;
+    font-size: 20px;
+    color: green;
+    cursor: pointer;
+}
+
+.btn:hover {
+    color: #fff;
+    background: green;
+}
+
+/* コメント入力の幅 */
+input.comment {
+    width: 400px;
+}
+
+.error-msg {
+    color: red;
+}
+
+table {
+    border: 1px solid #5e696c;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%; /* テーブル横幅 */
+    border-collapse: collapse; /* 境界線を共有 */
+}
+
+th {
+    border: 1px solid #5e696c;
+    text-align: center;
+    background-color: #3cb371;
+    height: 32px;
+}
+
+td {
+    border: 1px solid #5e696c;
+    text-align: center;
+    height: 24px;
+}
+
+.restaurant-list {
+    background-color: #eee8aa;
+}
+
+/* テーブル内ボタン */
+.tbtn {
+    border: 2px solid steelblue;
+    padding: 2px 10px;
+    font-size: 16px;
+    color: steelblue;
+    cursor: pointer;
+}
+
+.tbtn:hover {
+    color: #fff;
+    background: steelblue;
+}
+
+/* 確認画面用 */
+.confirm-table {
+    background-color: #e5d8e8;
+    width: 50%; /* テーブル横幅 */
+}
+
+.confirm-table .guide {
+    width: 30%; /* ガイド横幅 */
+}
+
+.confirm-table td {
+    text-align: left;
+}
